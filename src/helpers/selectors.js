@@ -14,3 +14,9 @@ export function getInterview(state, interview) {
     interviewer: interviewer
   };
 }
+
+export function getInterviewersForDay(state, day) {
+  //... returns an array of appointments for that day
+  const filteredDay = state.days.find(dayInfo => dayInfo.name === day);
+  return filteredDay ? filteredDay.interviewers.map(id => state.interviewers[id]) : [];
+}
