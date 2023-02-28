@@ -7,6 +7,7 @@ import useVisualMode from "hooks/useVisualMode";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 
 
@@ -16,6 +17,9 @@ const CREATE = "CREATE";
 const SAVING = "SAVING"
 const CONFIRM = "CONFIRM"
 const DELETING= "DELETING"
+const EDIT = "EDIT"
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 //In the Appointment component, add a delete function that takes an id parameter and uses the props.cancelInterview function to update the state by setting the interview property of the corresponding appointment object to null.
 
@@ -37,16 +41,25 @@ export default function Appointment(props) {
     .then (() => {
       transition(SHOW);
     })
+    .catch(error => {
+      transition(ERROR_SAVE, true);
+      console.log(error)
+    });
     console.log('appointment ID:', props.id, 'interview:', interview);
   }
 
 function onDelete() {
-  transition(DELETING)
+  transition(DELETING, true)
   props.cancelInterview(props.id)
   .then(() => {
     transition(EMPTY)
   })
+  .catch(error => {
+    transition(ERROR_DELETE, true);
+    console.log(error)
+  });
 }
+
 
 
   return (
@@ -62,6 +75,7 @@ function onDelete() {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
 
@@ -86,6 +100,27 @@ function onDelete() {
         <Confirm
         onCancel={() => back()}
         onConfirm={onDelete}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+        student={props.interview.student}
+        interviewer={props.interview.interviewer.id}
+        interviewers={props.interviewers}
+        onCancel={() => back()}
+        onSave={save}
+        />
+      )}
+        {mode === ERROR_SAVE && (
+        <Error
+        onClose={() => back()}
+        message={"Cannot Save"}
+        />
+      )}
+        {mode === ERROR_DELETE && (
+        <Error
+        onClose={() => back()}
+        message={"Cannot Delete"}
         />
       )}
     </article>
