@@ -4,7 +4,6 @@ import Button from "components/Button";
 import { useState } from "react";
 
 export default function Form(props) {
-  console.log(props.interviewer)
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");

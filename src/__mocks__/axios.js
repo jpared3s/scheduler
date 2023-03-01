@@ -90,6 +90,40 @@ export default {
     }
 
     if (url === "/api/appointments/1") {
+
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content",
+        data: fixtures.appointments
+      });
+    }
+    if (url === "/api/appointments/2") {
+
+      return Promise.reject({
+        status: 500,
+        statusText: "Rejected",
+        data: fixtures.appointments
+      });
+    }
+
+    if (url === "/api/interviewers") {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content",
+        data: fixtures.interviewers
+      });
+    }
+  }),
+  delete: jest.fn(url => {
+    if (url === "/api/days") {
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content",
+        data: fixtures.days
+      });
+    }
+
+    if (url === "/api/appointments/2") {
       return Promise.resolve({
         status: 204,
         statusText: "No Content",
@@ -104,5 +138,31 @@ export default {
         data: fixtures.interviewers
       });
     }
-  })
+  }),
+//   edit: jest.fn(url => {
+//     if (url === "/api/days") {
+//       return Promise.resolve({
+//         status: 204,
+//         statusText: "No Content",
+//         data: fixtures.days
+//       });
+//     }
+
+//     if (url === "/api/appointments/2") {
+//       return Promise.resolve({
+//         status: 204,
+//         statusText: "No Content",
+//         data: fixtures.appointments
+//       });
+//     }
+
+//     if (url === "/api/interviewers") {
+//       return Promise.resolve({
+//         status: 204,
+//         statusText: "No Content",
+//         data: fixtures.interviewers
+//       });
+//     }
+//   }),
+// 
 }

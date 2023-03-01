@@ -45,7 +45,6 @@ export default function Appointment(props) {
       transition(ERROR_SAVE, true);
       console.log(error)
     });
-    console.log('appointment ID:', props.id, 'interview:', interview);
   }
 
 function onDelete() {
