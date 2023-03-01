@@ -63,8 +63,8 @@ function onDelete() {
 
 
   return (
-    <article className="appointment">
-      <Header time={props.time} />
+    <article className="appointment" data-testid="appointment">
+      <Header time={props.time} />  
 
       {mode === EMPTY && (
         <Empty onAdd={onAdd} />
