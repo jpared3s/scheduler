@@ -88,12 +88,12 @@ function onDelete() {
       )}
        {mode === SAVING && (
         <Status
-          message= "Saving..."
+          message= "Saving"
         />
       )}
       {mode === DELETING && (
         <Status
-        message= "Deleting.."
+        message= "Deleting"
         />
       )}
        {mode === CONFIRM && (
