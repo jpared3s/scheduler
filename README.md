@@ -1,7 +1,7 @@
 # Interview Scheduler
 
 ## Introduction:
-The Interview Scheduler App is a React-based Single Page Application (SPA) that allows users to book, edit, and cancel interviews. The app uses the latest tools and techniques and is built using a concise API and WebSocket server to provide a real-time experience. This Read Me file is intended to provide users with an overview of the functional and behavioral requirements of the app, as well as its technical specifications.
+The Interview Scheduler App is a React-based Single Page Application (SPA) that allows users to book, edit, and cancel interviews. The app uses the latest tools and techniques and is built using a concise API and WebSocket server to provide a real-time experience. This Read Me file is intended to provide users with an overview of the functional and behavioral requirements of the app, as well as setup instructions.
 
 ## Functional Requirements:
 The app is designed to meet the following functional requirements:
