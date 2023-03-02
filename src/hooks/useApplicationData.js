@@ -1,28 +1,30 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 
-
-export default function useApplicationData () {
-
+export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {}
+    interviewers: {},
   });
 
   useEffect(() => {
     Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers"),
     ]).then((all) => {
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers:all[2].data}));
-    })
+      setState((prev) => ({
+        ...prev,
+        days: all[0].data,
+        appointments: all[1].data,
+        interviewers: all[2].data,
+      }));
+    });
   }, []);
 
-
-  const setDay = day => setState({ ...state, day });
+  const setDay = (day) => setState({ ...state, day });
 
   function updateSpots(state, appointments) {
     const days = state.days.map((day) => ({
@@ -46,43 +48,43 @@ export default function useApplicationData () {
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: { ...interview },
     };
     const appointments = {
       ...state.appointments,
-      [id]: appointment
+      [id]: appointment,
     };
-    return axios.put(`/api/appointments/${id}`, {
-      interview: interview
-    })
-    .then(response => {
-      //add spots logic(decrease)
-      setState({
-        ...state,
-        appointments,
-        days: updateSpots(state, appointments)
+    return axios
+      .put(`/api/appointments/${id}`, {
+        interview: interview,
+      })
+      .then((response) => {
+        //add spots logic(decrease)
+        setState({
+          ...state,
+          appointments,
+          days: updateSpots(state, appointments),
+        });
       });
-    })
   }
   /* */
-  function cancelInterview (id) {
+  function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
-      interview: null
+      interview: null,
     };
-  
+
     const appointments = {
       ...state.appointments,
-      [id]: appointment
+      [id]: appointment,
     };
-    return axios.delete(`/api/appointments/${id}`)
-    .then(response => {
+    return axios.delete(`/api/appointments/${id}`).then((response) => {
       setState({
         ...state,
         appointments,
-        days: updateSpots(state, appointments)
+        days: updateSpots(state, appointments),
       });
-    })
+    });
   }
   return { state, setDay, bookInterview, cancelInterview };
 }

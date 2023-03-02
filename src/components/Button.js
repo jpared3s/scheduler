@@ -6,7 +6,7 @@ import classNames from "classnames";
 export default function Button(props) {
   const buttonClass = classNames("button", {
     "button--confirm": props.confirm,
-    "button--danger": props.danger
+    "button--danger": props.danger,
   });
 
   return (
